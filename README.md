@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/887105764.svg)](https://zenodo.org/badge/latestdoi/887105764)
 # Blank-Lines-as-Indicators-of-Increased-Code-Complexity
 
 ## Project Structure
@@ -31,3 +32,6 @@
 
 4. **Run the Jupyter Notebook**:  
    Launch Jupyter Notebook and open `main.ipynb` to begin the analysis.
+
+## How to cite this work
+tbd. https://zenodo.org/doi/
