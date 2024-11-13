@@ -1,5 +1,5 @@
 [![DOI](https://zenodo.org/badge/887105764.svg)](https://zenodo.org/badge/latestdoi/887105764)
-# Exploring-Blank-Lines-Inside-Java-Methods-as-Indicators-of-Increased-Code-Complexity.
+# Exploring-Blank-Lines-Inside-Java-Methods-as-Indicators-of-Increased-Code-Complexity
 
 ## Project Structure
 
