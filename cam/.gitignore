@@ -1,0 +1,15 @@
+.DS_Store
+dataset/
+.idea/
+Library/
+test-zone/
+*.zip
+*.pdf
+pylint_plugins/__pycache__
+target/
+predictions.csv
+
+install-tl.log
+install-tl.zip.*
+install-tl/
+venv/
