@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "Code Quality Analysis: Exploring Blank Lines as Indicators of Increased Code Complexity"
+title: "Exploring Blank Lines Inside Java Methods as Indicators of Increased Code Complexity"
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -13,7 +13,7 @@ authors:
     orcid: '0000-0001-6370-0678'
 
 # doi: ## Add the DOI once it is created by Zenodo
-repository-code: 'https://github.com/RuslanGaliullin/Blank-Lines-as-Indicators-of-Increased-Code-Complexity'
+repository-code: 'https://github.com/RuslanGaliullin/Exploring-Blank-Lines-Inside-Java-Methods-as-Indicators-of-Increased-Code-Complexity'
 abstract: "Some software practitioners believe that class methods should not contain empty lines within their bodies, as such empty lines may indicate that the method's complexity has gone out of control. If an empty line is required to split a method into two parts, it may be more reasonable to split the method into two methods. To validate how the presence of empty lines correlates with method complexity, we collected 605,966 Java methods from 109 public GitHub repositories. We introduced two new metrics---the Number of Blank Lines (NoBL) and the Ratio of Blank Lines (RoBL)---and measured method complexity using twelve existing metrics, including Cyclomatic Complexity (CC), Halstead Effort (HSE), Halstead Volume (HSV), Cognitive Complexity (CoCo), Maintainability Index (MIDX), and Lines of Code (LoC). Subsequently, we calculated Spearman and Pearson correlation coefficients and found a moderate positive monotonic correlation between NoBL and the complexity metrics, while the correlation between RoBL and the complexity metrics is weaker. This finding supports the hypothesis that the presence of empty lines inside methods can serve as a proxy for method complexity."
 
 license: Apache-2.0
