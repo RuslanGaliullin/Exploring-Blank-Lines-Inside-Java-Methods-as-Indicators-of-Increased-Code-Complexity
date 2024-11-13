@@ -10,6 +10,9 @@
 
 ## Steps to Reproduce the Results
 
+0. **[Optional] Regenerate the Dataset**:  
+   To recreate the dataset of repositories, methods, and their associated metrics from scratch, follow the instructions in the `README.md` file located in the script directory. Once generated, copy the resulting dataset into a folder at the same level as `main.ipynb`.
+
 1. **Download the Data**:  
    Download the pre-collected metrics [data.zip](https://github.com/RuslanGaliullin/Blank-Lines-as-Indicators-of-Increased-Code-Complexity/releases/download/0.0.1/data.zip) and unzip it into a folder at the same level as `main.ipynb`.
 
