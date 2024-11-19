@@ -55,7 +55,7 @@ your [personal access token][create-PAT]:
 
 ```bash
 docker run --detach --name=cam --rm --volume "$(pwd):/dataset" \
-  -e "TOKEN=XXX" -e "TOTAL=1000" -e "TARGET=/dataset" \
+  -e "TOKEN=$TOKEN" -e "TOTAL=1000" -e "TARGET=/dataset" \
   --oom-kill-disable --memory=16g --memory-swap=16g \
   yegor256/cam:0.9.2 "make -e >/dataset/make.log 2>&1"
 ```
