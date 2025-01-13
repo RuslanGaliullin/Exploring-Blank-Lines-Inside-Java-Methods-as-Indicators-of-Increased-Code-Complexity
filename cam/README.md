@@ -54,10 +54,10 @@ and `XXX` is
 your [personal access token][create-PAT]:
 
 ```bash
-docker run --detach --name=cam --rm --volume "$(pwd):/dataset" \
-  -e "TOKEN=$TOKEN" -e "TOTAL=1000" -e "TARGET=/dataset" \
+docker run --detach --name=cam --rm --volume "$(pwd)/dataset:/dataset" \
+  -e "TOKEN=$GITHUB_TOKEN" -e "TOTAL=1000" -e "TARGET=/dataset" \
   --oom-kill-disable --memory=16g --memory-swap=16g \
-  yegor256/cam:0.9.2 "make -e >/dataset/make.log 2>&1"
+  paper:0.0.1 /bin/bash -c "make -e >/dataset/make.log 2>&1"
 ```
 
 This command will create a new Docker container, running in the background.

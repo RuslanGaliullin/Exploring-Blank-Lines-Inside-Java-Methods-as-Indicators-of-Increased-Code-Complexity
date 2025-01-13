@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env bash
 # The MIT License (MIT)
 #
 # Copyright (c) 2021-2024 Yegor Bugayenko
@@ -21,25 +21,35 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import sys
-import os
-from typing import Final
-import javalang
+set -e
+set -o pipefail
 
-if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print("Usage: python delete-non-classes.py <path to the .java file> <output file with .java files>")
-        sys.exit(1)
+home=$1
+temp=$2
 
-    java: Final[str] = sys.argv[1]
-    lst: Final[str] = sys.argv[2]
-    try:
-        with open(java, encoding='utf-8') as f:
-            raw = javalang.parse.parse(f.read())
-            tree = raw.filter(javalang.tree.ClassDeclaration)
-            if not (tree := list((value for value in tree))):
-                os.remove(java)
-                with open(lst, 'a+', encoding='utf-8') as others:
-                    others.write(java + "\n")
-    except Exception:
-        pass
+list=${temp}/filter-lists/extracted-methods.txt
+if [ -e "${list}" ]; then
+    exit
+fi
+
+mkdir -p "$(dirname "${list}")"
+touch "${list}"
+
+jobs=${temp}/jobs/extract-methods.txt
+rm -rf "${jobs}"
+mkdir -p "$(dirname "${jobs}")"
+touch "${jobs}"
+
+candidates=${temp}/classes-to-process.txt
+mkdir -p "$(dirname "${candidates}")"
+find "${home}" -type f -name '*.java' -print > "${candidates}"
+py=${LOCAL}/filters/extract-methods.py
+while IFS= read -r f; do
+    printf "python3 %s %s %s\n" "${py@Q}" "${f@Q}" "${list@Q}" >> "${jobs}"
+done < "${candidates}"
+"${LOCAL}/help/parallel.sh" "${jobs}"
+wait
+
+total=$(wc -l < "${candidates}" | xargs)
+printf "%'d methods were extracted from %'d Java files" \
+        "$(wc -l < "${list}" | xargs)" "${total}"

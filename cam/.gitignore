@@ -13,3 +13,4 @@ install-tl.log
 install-tl.zip.*
 install-tl/
 venv/
+temp/
