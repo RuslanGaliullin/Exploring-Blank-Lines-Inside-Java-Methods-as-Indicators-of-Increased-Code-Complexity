@@ -73,10 +73,9 @@ def collect_body(start, text):
 def split_list(input_list, chunk_size):
     return [input_list[i:i + chunk_size] for i in range(0, len(input_list), chunk_size)]
 
-async def find_methods_in_file(methods, text, dir_name):
+async def find_methods_in_file(methods, text, dir_name, lst):
     result_files = []
     create_file_coroutines = []
-    print(f"found methods {methods}")
     for index in range(len(methods)):
         
         pair = methods[index].split(":+:+:")
@@ -99,7 +98,7 @@ async def find_methods_in_file(methods, text, dir_name):
         result_class_name = f"{class_name}_{method_name[:method_name.find('(')]}_{index}"
         result_class_body = f"public {return_type} {method_name} {collect_body(start, text[method_index:])}"
 
-        create_file_coroutine = create_file(result_class_name, f"class {result_class_name} {{{result_class_body}}}", dir_name)
+        create_file_coroutine = create_file(result_class_name, f"class {result_class_name} {{{result_class_body}}}", dir_name, lst)
         create_file_coroutines.append(create_file_coroutine)
 
     # Await all create_file coroutines concurrently
@@ -107,31 +106,32 @@ async def find_methods_in_file(methods, text, dir_name):
 
     return result_files
 
-async def create_file(file, text, dir):
-    async with aiofiles.open(os.path.join(dir, file + ".java"), 'w', encoding='utf-8') as others:
-        print(f"writing to {os.path.join(dir, file + ".java")}\n")
+async def create_file(file, text, dir, lst):
+    path_to_file = os.path.join(dir, file + ".java")
+    async with aiofiles.open(path_to_file, 'w', encoding='utf-8') as others:
         await others.write(text)
+    
+    async with aiofiles.open(lst, 'a+', encoding='utf-8') as fout:
+        await fout.write(path_to_file + "\n")
 
-def run_async(methods, text, dir_name):
-    print(f"found methods {methods}")
-    asyncio.run(find_methods_in_file(methods, text, dir_name))
+def run_async(methods, text, dir_name, lst):
+    asyncio.run(find_methods_in_file(methods, text, dir_name, lst))
 
 if __name__ == '__main__':
     JAVA: str = sys.argv[1]
     LST: str = sys.argv[2]
-
-    with open(JAVA, encoding='utf-8') as f:
-        text = f.read()
+    
+    try:
+        text: str = ""
+        with open(JAVA, encoding='utf-8') as f:
+            text = f.read()
+        
         dir_name = os.path.dirname(JAVA)
 
         # Extract methods
         execute_command = f"java -cp help/ MethodExtractor {JAVA}"
         result = subprocess.run(execute_command, shell=True, capture_output=True)
         result = result.stdout.decode().split("\n")
-        run_async(result, text, dir_name)
-        print(f"reading {text} writing {dir_name}\n")
-    
-    # try:
-    #     os.remove(JAVA)
-    # except Exception as e:
-    #     pass
+        run_async(result, text, dir_name, LST)
+    except Exception:
+        pass
