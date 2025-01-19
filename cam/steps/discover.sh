@@ -52,7 +52,7 @@ elif [ -z "${REPOS}" ] || [ ! -e "${REPOS}" ]; then
     "--csv=${csv}" \
     "--tex=${TARGET}/temp/repo-details.tex" \
     "--pause=2" \
-    "--min-stars=1000" \
+    "--min-stars=10000" \
     "--max-stars=10000000" \
   )
   if [ -n "${CAMTESTS}" ]; then

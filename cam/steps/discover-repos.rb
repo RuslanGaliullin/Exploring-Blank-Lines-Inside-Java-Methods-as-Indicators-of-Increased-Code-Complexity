@@ -29,7 +29,7 @@ require 'fileutils'
 require 'slop'
 require 'octokit'
 
-max = 1000
+max = 10000
 
 opts = Slop.parse do |o|
   o.string '--token', 'GitHub access token', default: ''
@@ -48,7 +48,7 @@ opts = Slop.parse do |o|
   end
 end
 
-raise 'Can only retrieve up to 1000 repos' if opts[:total] > max
+raise 'Can only retrieve up to 10000 repos' if opts[:total] > max
 
 puts "Trying to find #{opts[:total]} repos in GitHub"
 size = [opts[:page_size], opts[:total]].min
