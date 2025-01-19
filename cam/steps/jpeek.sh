@@ -23,6 +23,8 @@
 set -e
 set -o pipefail
 
+exit 0
+
 start=$(date +%s%N)
 
 jobs=${TARGET}/temp/jobs/jpeek-jobs.txt

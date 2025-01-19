@@ -23,6 +23,8 @@
 set -e
 set -o pipefail
 
+exit 0
+
 repo=$1
 pos=$2
 total=$3
